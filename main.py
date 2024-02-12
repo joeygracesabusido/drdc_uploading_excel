@@ -4,6 +4,8 @@ import matplotlib.pyplot as plt
 import numpy as np
 import sys
 
+import math
+
 from prettytable import PrettyTable
 
 
@@ -61,8 +63,8 @@ def duraville_project():
         return Drdc_analyis_reporting.get_purchase_monitoring()
 
     elif ans == '2004':
-        pass
-        # return Drdc_analyis_reporting.load_data_to_drdc_mysql()         
+        
+        return Drdc_analyis_reporting.load_data_to_drdc_mysql()         
 
     elif ans == 'x' or ans =='X':
         exit()
@@ -147,7 +149,7 @@ class Drdc_analyis_reporting(): # this class is for DRDC analysis Reporting
     @staticmethod
     def get_purchase_monitoring():
         """This function is for getting all the purchase monitoring report"""
-        data_df = pd.read_excel(r'/home/joeysabusido/project/testing/excel_file/purchase_monitoring_0124.xlsx')
+        data_df = pd.read_excel(r'/home/joeysabusido/drdc_transfer/drdc_uploading_excel/excel_file/purchase_monitoring_0124.xlsx')
         pd.set_option('display.max_rows', None)
 
         # for index, row in data_df.iterrows():
@@ -162,7 +164,7 @@ class Drdc_analyis_reporting(): # this class is for DRDC analysis Reporting
     @staticmethod
     def load_data_to_drdc_mysql():
         """This function is for exporting the data"""
-        data_df = pd.read_excel(r'/home/joeysabusido/project/testing/excel_file/purchase_monitoring_0124.xlsx')
+        data_df = pd.read_excel(r'/home/joeysabusido/drdc_transfer/drdc_uploading_excel/excel_file/purchase_monitoring_0124.xlsx')
         pd.set_option('display.max_rows', None)
 
 
@@ -178,10 +180,21 @@ class Drdc_analyis_reporting(): # this class is for DRDC analysis Reporting
                 "supplier": row['SUPPLIER_PAYEE'],
                 "vat_reg": row['VAT_REG/NON_VAT_REG'],
                 "tin_no": row['TIN_NO'],
-                "net_of_vat": row['NET_OF_VAT'],
-                "amount_due": row['AMOUNT_DUE'],
+                "net_of_vat": 0.0 if math.isnan(row['NET_OF_VAT']) else row['NET_OF_VAT'],
+                "amount_due":  0.0 if math.isnan(row['AMOUNT_DUE']) else row['AMOUNT_DUE'],
                 "expense_account": row['EXPENSE_ACCOUNT'],
                 "description": row['DESCRIPTION'],
+                "inclusive_date": 0 if pd.isna(row['INCLUSIVE_DATE']) else row['INCLUSIVE_DATE'],
+                "sin": 0 if pd.isna(row['SIN']) else row['SIN'],
+                "can": 0 if pd.isna(row['CAN']) else row['CAN'],
+                "khw_no": 0.0 if math.isnan(row['KWH_NO']) else row['KWH_NO'],
+                "price": 0.0 if math.isnan(row['PRICE_KWH']) else row['PRICE_KWH'],
+                "cubic_meter": 0.0 if math.isnan(row['CM3']) else row['CM3'],
+                "pic": 0 if pd.isna(row['PIC']) else row['PIC'],
+                "person_incharge_end_user": 0 if pd.isna(row['PERSON_ENDCHARGE']) else row['PERSON_ENDCHARGE'],
+                "no_of_person": 0 if pd.isna(row['NO_OF_PERSON']) else row['NO_OF_PERSON'],
+                "activity_made": 0 if pd.isna(row['ACTIVITY_MADE_TRANSPO']) else row['ACTIVITY_MADE_TRANSPO'],
+                "plate_no": 0 if pd.isna(row['PLATE_NO']) else row['PLATE_NO'],
                 "user": 'Jerome'
 
                 # Add more key-value pairs as needed
