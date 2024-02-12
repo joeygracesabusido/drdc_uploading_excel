@@ -59,15 +59,16 @@ class CostHandling():# this is for views function for GRC project
 
     @staticmethod
     def insert_cost_from_purchase_monitoring(voucher_date,voucher_no,company,
-                                             book,supplier,vat_reg,tin_no,net_of_vat,
-                                             amount_due,expense_account,description,
+                                             book,supplier,vat_reg,tin_no,net_of_vat,vat_exempt,net_ofvat_with_vat_exempt,
+                                             amount_due,with_holding_tax,total_amount_due,expense_account,description,
                                              inclusive_date,sin,can,khw_no,
                                              price,cubic_meter,pic,person_incharge_end_user,
                                              no_of_person,activity_made,plate_no,user):
        
         insertData = Cost(voucher_date=voucher_date,voucher_no=voucher_no,company=company,
                           book=book,supplier=supplier,vat_reg=vat_reg,tin_no=tin_no,
-                          net_of_vat=net_of_vat,amount_due=amount_due,expense_account=expense_account,
+                          net_of_vat=net_of_vat,vat_exempt=vat_exempt,net_ofvat_with_vat_exempt=net_ofvat_with_vat_exempt,amount_due=amount_due,
+                          with_holding_tax=with_holding_tax,total_amount_due=total_amount_due,expense_account=expense_account,
                           description=description,inclusive_date=inclusive_date,sin=sin,
                            can=can,khw_no=khw_no,price=price,cubic_meter=cubic_meter,
                              pic=pic,person_incharge_end_user=person_incharge_end_user,
